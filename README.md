@@ -45,7 +45,7 @@ A simple React app to track daily expenses with charts and local storage.
 ---
 
 ## 🌐 Live Demo
-Add your Netlify link here
+https://lustrous-haupia-514746.netlify.app/
 
 ---
 
