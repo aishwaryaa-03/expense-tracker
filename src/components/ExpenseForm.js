@@ -1,16 +1,19 @@
 import { useState } from "react";
 
 function ExpenseForm({ addExpense }) {
-
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("Food");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!title || !amount) return;
+
     addExpense({
       title,
-      amount
+      amount,
+      category
     });
 
     setTitle("");
@@ -22,21 +25,29 @@ function ExpenseForm({ addExpense }) {
 
       <input
         type="text"
-        placeholder="Enter expense"
+        placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
 
       <input
         type="number"
-        placeholder="Enter amount"
+        placeholder="Amount"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
 
-      <button type="submit">
-        Add Expense
-      </button>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        <option>Food</option>
+        <option>Travel</option>
+        <option>Bills</option>
+        <option>Shopping</option>
+      </select>
+
+      <button type="submit">Add</button>
 
     </form>
   );

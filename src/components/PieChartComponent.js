@@ -1,29 +1,25 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
-const COLORS = ["#4caf50", "#ff9800", "#2196f3", "#f44336", "#9c27b0"];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
-export default function PieChartComponent({ data }) {
+function PieChartComponent({ data }) {
+  const chartData = Object.keys(data).map((key) => ({
+    name: key,
+    value: data[key]
+  }));
+
   return (
-    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-      <PieChart width={300} height={300}>
-        <Pie
-          data={data}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={110}
-          fill="#8884d8"
-          label
-        >
-          {data.map((_, index) => (
-            <Cell key={index} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
+    <PieChart width={300} height={300}>
+      <Pie data={chartData} dataKey="value" nameKey="name" outerRadius={100}>
+        {chartData.map((_, index) => (
+          <Cell key={index} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
 
-        <Tooltip />
-        <Legend />
-      </PieChart>
-    </div>
+      <Tooltip />
+      <Legend />
+    </PieChart>
   );
 }
+
+export default PieChartComponent;

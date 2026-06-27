@@ -1,12 +1,36 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer
+} from "recharts";
 
-export default function LineChartComponent({ data }) {
+function LineChartComponent({ expenses }) {
+  const daily = expenses.reduce((acc, item) => {
+    const date = item.date;
+    acc[date] = (acc[date] || 0) + Number(item.amount);
+    return acc;
+  }, {});
+
+  const data = Object.keys(daily).map((date) => ({
+    date,
+    amount: daily[date]
+  }));
+
   return (
-    <LineChart width={350} height={250} data={data}>
-      <XAxis dataKey="month" />
-      <YAxis />
-      <Tooltip />
-      <Line type="monotone" dataKey="expense" stroke="red" />
-    </LineChart>
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Line type="monotone" dataKey="amount" stroke="#4caf50" />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
+
+export default LineChartComponent;
